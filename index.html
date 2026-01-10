@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاركة المتطلبات | Requirements Share</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #1a73e8;
+            --primary-light: #e8f0fe;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #dadce0;
+            --shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px rgba(60,64,67,0.15);
+            --shadow-light: 0 1px 2px rgba(60,64,67,0.3);
+            --success-color: #34a853;
+            --warning-color: #f9ab00;
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-color: #8ab4f8;
+            --primary-light: #202124;
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --bg-color: #202124;
+            --card-bg: #292a2d;
+            --border-color: #3c4043;
+            --shadow: 0 1px 3px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
+            --shadow-light: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Almarai', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 20px;
+            padding: 8px;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: var(--radius);
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0d62d9;
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #f1f3f4;
+            color: var(--text-primary);
+        }
+
+        .dark-mode .btn-secondary {
+            background-color: #3c4043;
+            color: #e8eaed;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e3e5e7;
+            box-shadow: var(--shadow-light);
+        }
+
+        .dark-mode .btn-secondary:hover {
+            background-color: #424548;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #2e8e47;
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: #202124;
+        }
+
+        .btn-warning:hover {
+            background-color: #e09b00;
+            box-shadow: var(--shadow-light);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        /* URL Display Box */
+        .url-box {
+            background-color: var(--primary-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-top: 20px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 14px;
+            display: none;
+        }
+
+        .url-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Requirements Display */
+        .requirements-container {
+            display: none;
+        }
+
+        .creation-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .requirements-content {
+            line-height: 1.8;
+            white-space: pre-wrap;
+            font-size: 16px;
+            padding: 20px 0;
+        }
+
+        /* History Section */
+        .history-container {
+            display: none;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .history-item {
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .history-item:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-color);
+        }
+
+        .history-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .history-date {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .history-preview {
+            font-size: 14px;
+            color: var(--text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .theme-toggle {
+                align-self: flex-end;
+                margin-top: -55px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .card-header h2 {
+                font-size: 18px;
+            }
+            
+            input, textarea, .btn {
+                font-size: 15px;
+            }
+        }
+
+        /* RTL Adjustments */
+        [dir="rtl"] .fa-angle-left:before {
+            content: "\f105";
+        }
+
+        [dir="rtl"] .history-preview {
+            text-align: right;
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            .requirements-container {
+                display: block !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            
+            .requirements-content {
+                font-size: 14pt;
+                line-height: 1.5;
+            }
+            
+            body {
+                background-color: white !important;
+                color: black !important;
+            }
+            
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-file-contract"></i>
+                <h1>مشاركة متطلبات المشروع</h1>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="تبديل وضع الليل">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <main>
+            <!-- Input Form -->
+            <div class="card fade-in" id="inputForm">
+                <div class="card-header">
+                    <h2><i class="fas fa-edit"></i> أدخل متطلبات المشروع</h2>
+                </div>
+                <div class="form-group">
+                    <label for="title">عنوان المتطلبات</label>
+                    <input type="text" id="title" placeholder="مثال: متطلبات تطبيق الهاتف الجديد" dir="auto">
+                </div>
+                <div class="form-group">
+                    <label for="requirements">تفاصيل المتطلبات</label>
+                    <textarea id="requirements" placeholder="صف تفاصيل متطلبات مشروعك هنا... يمكنك استخدام نقاط، أرقام، أو فقرات. يدعم النص العربي والإيموجي 😊" dir="auto"></textarea>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-primary" id="generateBtn">
+                        <i class="fas fa-link"></i> إنشاء رابط المشاركة
+                    </button>
+                    <button class="btn btn-secondary" id="viewHistoryBtn">
+                        <i class="fas fa-history"></i> عرض السجل
+                    </button>
+                </div>
+                <div class="url-box" id="urlBox">
+                    <div id="urlText"></div>
+                    <div class="button-group" style="margin-top: 15px;">
+                        <button class="btn btn-success" id="copyBtn">
+                            <i class="fas fa-copy"></i> نسخ الرابط
+                        </button>
+                        <button class="btn btn-success" id="whatsappBtn">
+                            <i class="fab fa-whatsapp"></i> مشاركة عبر واتساب
+                        </button>
+                        <button class="btn btn-warning" id="printBtn">
+                            <i class="fas fa-print"></i> طباعة / PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requirements Display -->
+            <div class="card requirements-container" id="requirementsDisplay">
+                <div class="creation-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span id="displayDate"></span>
+                </div>
+                <h1 id="displayTitle" style="margin-bottom: 20px;"></h1>
+                <div class="requirements-content" id="displayRequirements"></div>
+                <div class="button-group" style="margin-top: 30px;">
+                    <button class="btn btn-primary" id="newRequirementsBtn">
+                        <i class="fas fa-plus"></i> إنشاء متطلبات جديدة
+                    </button>
+                    <button class="btn btn-secondary" id="shareAgainBtn">
+                        <i class="fas fa-share-alt"></i> مشاركة مرة أخرى
+                    </button>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="card history-container" id="historyContainer">
+                <div class="card-header">
+                    <h2><i class="fas fa-history"></i> سجل المتطلبات السابقة</h2>
+                </div>
+                <div class="history-list" id="historyList">
+                    <!-- History items will be added here by JavaScript -->
+                </div>
+                <div class="button-group" style="margin-top: 20px;">
+                    <button class="btn btn-secondary" id="backToFormBtn">
+                        <i class="fas fa-arrow-right"></i> العودة للنموذج
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="no-print">
+            <p>© 2023 أداة مشاركة متطلبات المشروع. جميع الحقوق محفوظة.</p>
+            <p style="margin-top: 5px; font-size: 13px;">أداة ثابتة بالكامل - لا تتطلب خادمًا أو قاعدة بيانات</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const inputForm = document.getElementById('inputForm');
+        const requirementsDisplay = document.getElementById('requirementsDisplay');
+        const historyContainer = document.getElementById('historyContainer');
+        const titleInput = document.getElementById('title');
+        const requirementsInput = document.getElementById('requirements');
+        const generateBtn = document.getElementById('generateBtn');
+        const urlBox = document.getElementById('urlBox');
+        const urlText = document.getElementById('urlText');
+        const copyBtn = document.getElementById('copyBtn');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const printBtn = document.getElementById('printBtn');
+        const displayTitle = document.getElementById('displayTitle');
+        const displayRequirements = document.getElementById('displayRequirements');
+        const displayDate = document.getElementById('displayDate');
+        const newRequirementsBtn = document.getElementById('newRequirementsBtn');
+        const shareAgainBtn = document.getElementById('shareAgainBtn');
+        const viewHistoryBtn = document.getElementById('viewHistoryBtn');
+        const backToFormBtn = document.getElementById('backToFormBtn');
+        const historyList = document.getElementById('historyList');
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        // State management
+        let currentData = null;
+        let history = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load history from localStorage
+            loadHistory();
+            
+            // Check for hash in URL
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                decodeAndDisplayData(hash);
+            }
+            
+            // Set current date
+            updateCurrentDate();
+            
+            // Initialize theme
+            initTheme();
+        });
+
+        // Initialize theme based on user preference
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                enableDarkMode();
+            }
+            
+            // Update icon based on current theme
+            updateThemeIcon();
+        }
+
+        // Toggle theme
+        themeToggle.addEventListener('click', function() {
+            if (document.body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+            updateThemeIcon();
+        });
+
+        function enableDarkMode() {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDarkMode() {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light');
+        }
+
+        function updateThemeIcon() {
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        // Update current date in form
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('title').placeholder = `متطلبات المشروع - ${now.toLocaleDateString('ar-SA', {day: 'numeric', month: 'long', year: 'numeric'})}`;
+        }
+
+        // Generate share link
+        generateBtn.addEventListener('click', function() {
+            const title = titleInput.value.trim();
+            const requirements = requirementsInput.value.trim();
+            
+            if (!title || !requirements) {
+                alert('الرجاء إدخال عنوان وتفاصيل المتطلبات');
+                return;
+            }
+            
+            // Create data object
+            const data = {
+                title: title,
+                requirements: requirements,
+                date: new Date().toISOString(),
+                id: Date.now().toString()
+            };
+            
+            currentData = data;
+            
+            // Convert to JSON and Base64
+            const jsonData = JSON.stringify(data);
+            const base64Data = btoa(unescape(encodeURIComponent(jsonData)));
+            
+            // Generate URL
+            const url = window.location.origin + window.location.pathname + '#' + base64Data;
+            
+            // Display URL box
+            urlText.textContent = url;
+            urlBox.classList.add('show');
+            
+            // Save to history
+            saveToHistory(data);
+        });
+
+        // Copy link to clipboard
+        copyBtn.addEventListener('click', async function() {
+            const url = urlText.textContent;
+            
+            try {
+                await navigator.clipboard.writeText(url);
+                
+                // Visual feedback
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                copyBtn.style.backgroundColor = '#2e8e47';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.style.backgroundColor = '';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                alert('تعذر نسخ الرابط. يرجى المحاولة مرة أخرى.');
+            }
+        });
+
+        // Share on WhatsApp
+        whatsappBtn.addEventListener('click', function() {
+            const url = urlText.textContent;
+            const text = `متطلبات المشروع: ${currentData ? currentData.title : 'متطلبات مشروع'}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + '\n\n' + url)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Print/PDF
+        printBtn.addEventListener('click', function() {
+            window.print();
+        });
+
+        // New requirements button
+        newRequirementsBtn.addEventListener('click', function() {
+            window.location.hash = '';
+            location.reload();
+        });
+
+        // Share again button
+        shareAgainBtn.addEventListener('click', function() {
+            if (currentData) {
+                const jsonData = JSON.stringify(currentData);
+                const base64Data = btoa(unescape(encodeURIComponent(jsonData)));
+                const url = window.location.origin + window.location.pathname + '#' + base64Data;
+                
+                urlText.textContent = url;
+                inputForm.style.display = 'block';
+                requirementsDisplay.style.display = 'none';
+                urlBox.classList.add('show');
+            }
+        });
+
+        // View history button
+        viewHistoryBtn.addEventListener('click', function() {
+            inputForm.style.display = 'none';
+            requirementsDisplay.style.display = 'none';
+            historyContainer.style.display = 'block';
+            renderHistoryList();
+        });
+
+        // Back to form button
+        backToFormBtn.addEventListener('click', function() {
+            historyContainer.style.display = 'none';
+            inputForm.style.display = 'block';
+        });
+
+        // Decode and display data from hash
+        function decodeAndDisplayData(hash) {
+            try {
+                // Decode Base64
+                const jsonData = decodeURIComponent(escape(atob(hash)));
+                const data = JSON.parse(jsonData);
+                
+                currentData = data;
+                
+                // Hide input form, show requirements display
+                inputForm.style.display = 'none';
+                requirementsDisplay.style.display = 'block';
+                
+                // Display data
+                displayTitle.textContent = data.title;
+                displayRequirements.textContent = data.requirements;
+                
+                // Format and display date
+                const date = new Date(data.date);
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+                displayDate.textContent = `تم الإنشاء في: ${date.toLocaleDateString('ar-SA', options)}`;
+                
+                // Add to history if not already there
+                if (!history.some(item => item.id === data.id)) {
+                    saveToHistory(data);
+                }
+            } catch (error) {
+                console.error('Error decoding data:', error);
+                alert('تعذر تحميل البيانات من الرابط. قد يكون الرابط تالفًا.');
+            }
+        }
+
+        // Save to history (localStorage)
+        function saveToHistory(data) {
+            // Check if already exists
+            const existingIndex = history.findIndex(item => item.id === data.id);
+            if (existingIndex !== -1) {
+                history.splice(existingIndex, 1);
+            }
+            
+            // Add to beginning of array
+            history.unshift(data);
+            
+            // Keep only last 10 items
+            if (history.length > 10) {
+                history = history.slice(0, 10);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('requirementsHistory', JSON.stringify(history));
+            
+            // Update history list if visible
+            if (historyContainer.style.display === 'block') {
+                renderHistoryList();
+            }
+        }
+
+        // Load history from localStorage
+        function loadHistory() {
+            const savedHistory = localStorage.getItem('requirementsHistory');
+            if (savedHistory) {
+                history = JSON.parse(savedHistory);
+            }
+        }
+
+        // Render history list
+        function renderHistoryList() {
+            historyList.innerHTML = '';
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 20px;">لا توجد متطلبات سابقة</p>';
+                return;
+            }
+            
+            history.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.addEventListener('click', () => {
+                    const jsonData = JSON.stringify(item);
+                    const base64Data = btoa(unescape(encodeURIComponent(jsonData)));
+                    window.location.href = window.location.origin + window.location.pathname + '#' + base64Data;
+                });
+                
+                const date = new Date(item.date);
+                const formattedDate = date.toLocaleDateString('ar-SA', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                // Create preview text (first 100 chars)
+                const previewText = item.requirements.length > 100 
+                    ? item.requirements.substring(0, 100) + '...' 
+                    : item.requirements;
+                
+                historyItem.innerHTML = `
+                    <div class="history-title">${item.title}</div>
+                    <div class="history-date"><i class="far fa-calendar-alt"></i> ${formattedDate}</div>
+                    <div class="history-preview">${previewText}</div>
+                `;
+                
+                historyList.appendChild(historyItem);
+            });
+        }
+
+        // Handle hash changes
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                decodeAndDisplayData(hash);
+            } else {
+                // If hash is removed, show input form
+                inputForm.style.display = 'block';
+                requirementsDisplay.style.display = 'none';
+                historyContainer.style.display = 'none';
+                urlBox.classList.remove('show');
+            }
+        });
+
+        // Emoji support - ensure textarea handles emojis properly
+        requirementsInput.addEventListener('input', function() {
+            // This ensures the textarea value is properly handled
+            // No special handling needed in modern browsers
+        });
+    </script>
+</body>
+</html>
