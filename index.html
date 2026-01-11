@@ -1,1458 +1,161 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشاركة المتطلبات | Requirements Share</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Global Styles */
-        :root {
-            --primary-color: #1a73e8;
-            --primary-light: #e8f0fe;
-            --text-primary: #202124;
-            --text-secondary: #5f6368;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --border-color: #dadce0;
-            --shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px rgba(60,64,67,0.15);
-            --shadow-light: 0 1px 2px rgba(60,64,67,0.3);
-            --success-color: #34a853;
-            --warning-color: #f9ab00;
-            --danger-color: #ea4335;
-            --info-color: #4285f4;
-            --ai-color: #9b59b6;
-            --radius: 12px;
-            --transition: all 0.3s ease;
-        }
-
-        .dark-mode {
-            --primary-color: #8ab4f8;
-            --primary-light: #1e3a5f;
-            --text-primary: #e8eaed;
-            --text-secondary: #9aa0a6;
-            --bg-color: #1a1a1a;
-            --card-bg: #292a2d;
-            --border-color: #3c4043;
-            --shadow: 0 1px 3px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
-            --shadow-light: 0 1px 2px rgba(0,0,0,0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Cairo', 'Almarai', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: var(--transition);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header Styles */
-        header {
-            background: var(--card-bg);
-            padding: 20px;
-            margin: -20px -20px 30px -20px;
-            box-shadow: var(--shadow);
-            border-radius: 0 0 var(--radius) var(--radius);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo i {
-            color: var(--primary-color);
-            font-size: 32px;
-        }
-
-        .logo h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .theme-toggle {
-            background: var(--bg-color);
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 20px;
-            padding: 10px;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            background-color: var(--primary-light);
-            color: var(--primary-color);
-            transform: scale(1.1);
-        }
-
-        /* Card Styles */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 30px;
-            margin-bottom: 24px;
-            transition: var(--transition);
-        }
-
-        .card-header {
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card-header h2 {
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 15px;
-        }
-
-        .required {
-            color: var(--danger-color);
-            margin-right: 4px;
-        }
-
-        input[type="text"],
-        input[type="password"],
-        textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius);
-            font-family: 'Cairo', sans-serif;
-            font-size: 16px;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            transition: var(--transition);
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px var(--primary-light);
-        }
-
-        textarea {
-            min-height: 180px;
-            resize: vertical;
-        }
-
-        /* Tags Input */
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding: 10px;
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius);
-            background: var(--bg-color);
-            min-height: 56px;
-            cursor: text;
-        }
-
-        .tags-container:focus-within {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px var(--primary-light);
-        }
-
-        .tag {
-            background: var(--primary-color);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-            animation: slideIn 0.3s;
-        }
-
-        .tag-remove {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-            line-height: 1;
-            padding: 0 2px;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-
-        .tag-remove:hover {
-            opacity: 1;
-        }
-
-        .tag-input {
-            border: none;
-            background: transparent;
-            flex: 1;
-            min-width: 150px;
-            padding: 6px;
-            color: var(--text-primary);
-            outline: none;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        /* Confidence Slider */
-        .slider-container {
-            padding: 15px 0;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: linear-gradient(to left, var(--danger-color), var(--warning-color), var(--success-color));
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: white;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-            border: 3px solid var(--primary-color);
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: white;
-            cursor: pointer;
-            border: 3px solid var(--primary-color);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        }
-
-        .confidence-display {
-            text-align: center;
-            margin-top: 12px;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        /* File Upload */
-        .file-upload-area {
-            border: 2px dashed var(--border-color);
-            border-radius: var(--radius);
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            background: var(--bg-color);
-        }
-
-        .file-upload-area:hover {
-            border-color: var(--primary-color);
-            background: var(--primary-light);
-        }
-
-        .file-upload-area.dragover {
-            border-color: var(--primary-color);
-            background: var(--primary-light);
-        }
-
-        .file-upload-icon {
-            font-size: 48px;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .file-list {
-            margin-top: 15px;
-        }
-
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--bg-color);
-            border-radius: var(--radius);
-            margin-bottom: 10px;
-            border: 1px solid var(--border-color);
-        }
-
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-        }
-
-        .file-icon {
-            color: var(--primary-color);
-            font-size: 20px;
-        }
-
-        .file-name {
-            font-weight: 500;
-        }
-
-        .file-size {
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin-right: 8px;
-        }
-
-        /* Checkbox Group */
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            background: var(--bg-color);
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .checkbox-group:hover {
-            background: var(--primary-light);
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .checkbox-group label {
-            margin: 0;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        /* Password Section */
-        .password-section {
-            background: var(--bg-color);
-            padding: 20px;
-            border-radius: var(--radius);
-            border: 2px solid var(--border-color);
-        }
-
-        /* Badges */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .badge-ai {
-            background: var(--ai-color);
-            color: white;
-        }
-
-        .badge-protected {
-            background: var(--warning-color);
-            color: #202124;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 14px 28px;
-            border-radius: var(--radius);
-            font-family: 'Cairo', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #1557b0;
-        }
-
-        .btn-secondary {
-            background: var(--bg-color);
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border-color);
-        }
-
-        .btn-success {
-            background: var(--success-color);
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #2e8e47;
-        }
-
-        .btn-warning {
-            background: var(--warning-color);
-            color: #202124;
-        }
-
-        .btn-warning:hover {
-            background: #e09b00;
-        }
-
-        .btn-danger {
-            background: var(--danger-color);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #d93025;
-        }
-
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        /* URL Display Box */
-        .url-box {
-            background: var(--primary-light);
-            border: 2px solid var(--primary-color);
-            border-radius: var(--radius);
-            padding: 20px;
-            margin-top: 24px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .url-text {
-            word-break: break-all;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            background: var(--card-bg);
-            padding: 16px;
-            border-radius: var(--radius);
-            margin: 15px 0;
-            direction: ltr;
-            text-align: left;
-            color: var(--text-primary);
-        }
-
-        /* Display Styles */
-        .requirement-header {
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 20px;
-            margin-bottom: 24px;
-        }
-
-        .requirement-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .requirement-meta {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            color: var(--text-secondary);
-            font-size: 15px;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .requirement-content {
-            line-height: 1.9;
-            font-size: 17px;
-            margin: 24px 0;
-            white-space: pre-wrap;
-        }
-
-        .confidence-bar {
-            background: var(--bg-color);
-            height: 40px;
-            border-radius: 20px;
-            overflow: hidden;
-            margin: 20px 0;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .confidence-fill {
-            height: 100%;
-            background: linear-gradient(to left, var(--danger-color), var(--warning-color), var(--success-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 16px;
-            transition: width 0.8s ease;
-        }
-
-        /* History */
-        .history-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .history-item {
-            padding: 20px;
-            background: var(--bg-color);
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: var(--transition);
-            border-right: 5px solid var(--primary-color);
-        }
-
-        .history-item:hover {
-            background: var(--primary-light);
-            border-color: var(--primary-color);
-            transform: translateX(-5px);
-        }
-
-        .history-title {
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .history-date {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-
-        .history-preview {
-            font-size: 15px;
-            color: var(--text-secondary);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
-        }
-
-        .empty-state i {
-            font-size: 64px;
-            margin-bottom: 20px;
-            opacity: 0.3;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* Utilities */
-        .hidden {
-            display: none !important;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-4 {
-            margin-top: 24px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            header {
-                margin: -15px -15px 20px -15px;
-                padding: 15px;
-            }
-
-            .logo h1 {
-                font-size: 20px;
-            }
-
-            .logo i {
-                font-size: 24px;
-            }
-
-            .card {
-                padding: 20px;
-            }
-
-            .btn-group {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .requirement-title {
-                font-size: 24px;
-            }
-
-            .tag-input {
-                min-width: 100px;
-            }
-        }
-
-        /* Print Styles */
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-
-            body {
-                background: white;
-                color: black;
-            }
-
-            .card {
-                box-shadow: none;
-                border: 1px solid #ddd;
-            }
-
-            .requirement-content {
-                font-size: 12pt;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Requirements Share</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --primary:#1a73e8; --primary-light:#e8f0fe; --text:#202124; --text-secondary:#5f6368;
+  --bg:#fff; --card:#fff; --border:#dadce0; --shadow:0 1px 3px rgba(60,64,67,0.3),0 4px 8px rgba(60,64,67,0.15);
+  --radius:8px; --transition:all 0.3s ease; --success:#34a853; --warning:#f9ab00;
+}
+.dark {--primary:#8ab4f8; --primary-light:#202124; --text:#e8eaed; --text-secondary:#9aa0a6; --bg:#202124; --card:#292a2d; --border:#3c4043;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:sans-serif;background:var(--bg);color:var(--text);transition:var(--transition);min-height:100vh;padding:20px;}
+.container{max-width:900px;margin:0 auto;}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;border-bottom:1px solid var(--border);padding-bottom:10px;}
+header h1{font-size:24px;color:var(--primary);}
+.theme-toggle{cursor:pointer;font-size:20px;}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:20px;}
+input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:15px;}
+input[type=range]{width:100%;}
+button{padding:10px 20px;border:none;border-radius:var(--radius);cursor:pointer;transition:var(--transition);}
+button.primary{background:var(--primary);color:white;}
+button.secondary{background:#f1f3f4;color:var(--text);}
+button.success{background:var(--success);color:white;}
+button.warning{background:var(--warning);color:#202124;}
+.url-box{background:var(--primary-light);padding:10px;border-radius:var(--radius);word-break:break-all;display:none;margin-top:10px;}
+.history-item{padding:10px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;margin-bottom:8px;}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header class="no-print">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-file-contract"></i>
-                    <h1>مشاركة متطلبات المشروع</h1>
-                </div>
-                <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-        </header>
-
-        <main>
-            <!-- Input Form -->
-            <div class="card fade-in" id="inputForm">
-                <div class="card-header">
-                    <h2><i class="fas fa-edit"></i> إنشاء متطلبات جديدة</h2>
-                </div>
-
-                <form id="requirementForm">
-                    <div class="form-group">
-                        <label for="title">
-                            <span class="required">*</span>
-                            عنوان المشروع
-                        </label>
-                        <input type="text" id="title" required placeholder="مثال: تطبيق إدارة المهام" dir="auto">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="requirements">
-                            <span class="required">*</span>
-                            تفاصيل المتطلبات
-                        </label>
-                        <textarea id="requirements" required placeholder="اكتب متطلبات مشروعك بالتفصيل... يمكنك استخدام الإيموجي 😊" dir="auto"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>الوسوم / التصنيفات</label>
-                        <div class="tags-container" id="tagsContainer">
-                            <input type="text" class="tag-input" id="tagInput" placeholder="اكتب واضغط Enter..." dir="auto">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confidence">
-                            مستوى الثقة: <span id="confidenceValue">50</span>%
-                        </label>
-                        <div class="slider-container">
-                            <input type="range" id="confidence" min="0" max="100" value="50">
-                        </div>
-                        <div class="confidence-display" id="confidenceDisplay">50%</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>إرفاق ملفات (حتى 5 ملفات، حد أقصى 1 جيجا لكل ملف)</label>
-                        <div class="file-upload-area" id="fileUploadArea">
-                            <div class="file-upload-icon">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                            </div>
-                            <p>اسحب الملفات هنا أو انقر للاختيار</p>
-                            <input type="file" id="fileInput" multiple hidden>
-                        </div>
-                        <div class="file-list" id="fileList"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="password-section">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="usePassword">
-                                <label for="usePassword">
-                                    <i class="fas fa-lock"></i>
-                                    حماية بكلمة مرور
-                                </label>
-                            </div>
-                            <div class="form-group hidden" id="passwordGroup" style="margin-top: 15px; margin-bottom: 0;">
-                                <input type="password" id="password" placeholder="أدخل كلمة المرور">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="isAI">
-                        <label for="isAI">
-                            <i class="fas fa-robot"></i>
-                            محتوى مُنشأ بالذكاء الاصطناعي
-                        </label>
-                    </div>
-
-                    <div class="btn-group">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-link"></i>
-                            إنشاء رابط المشاركة
-                        </button>
-                        <button type="button" class="btn btn-secondary" id="viewHistoryBtn">
-                            <i class="fas fa-history"></i>
-                            عرض السجل
-                        </button>
-                    </div>
-                </form>
-
-                <div class="url-box hidden" id="urlBox">
-                    <h3 style="margin-bottom: 15px;">
-                        <i class="fas fa-check-circle"></i>
-                        تم إنشاء الرابط بنجاح!
-                    </h3>
-                    <div class="url-text" id="urlText"></div>
-                    <div class="btn-group">
-                        <button class="btn btn-success" id="copyBtn">
-                            <i class="fas fa-copy"></i>
-                            نسخ الرابط
-                        </button>
-                        <button class="btn btn-success" id="whatsappBtn">
-                            <i class="fab fa-whatsapp"></i>
-                            واتساب
-                        </button>
-                        <button class="btn btn-warning" id="printBtn">
-                            <i class="fas fa-print"></i>
-                            طباعة / PDF
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Display View -->
-            <div class="card hidden" id="displayView">
-                <div id="passwordCheck" class="hidden">
-                    <div class="text-center" style="padding: 40px;">
-                        <i class="fas fa-lock" style="font-size: 64px; color: var(--warning-color); margin-bottom: 20px;"></i>
-                        <h2 style="margin-bottom: 15px;">محمي بكلمة مرور</h2>
-                        <p style="color: var(--text-secondary); margin-bottom: 25px;">هذا المحتوى محمي. يرجى إدخال كلمة المرور للعرض.</p>
-                        <div class="form-group" style="max-width: 400px; margin: 0 auto;">
-                            <input type="password" id="viewPassword" placeholder="أدخل كلمة المرور">
-                            <div id="passwordError" class="hidden" style="color: var(--danger-color); margin-top: 10px; font-size: 14px;"></div>
-                        </div>
-                        <button class="btn btn-primary mt-4" id="unlockBtn">
-                            <i class="fas fa-unlock"></i>
-                            فتح
-                        </button>
-                    </div>
-                </div>
-
-                <div id="requirementDisplay" class="hidden">
-                    <!-- Content will be populated by JavaScript -->
-                </div>
-            </div>
-
-            <!-- History View -->
-            <div class="card hidden" id="historyView">
-                <div class="card-header">
-                    <h2><i class="fas fa-history"></i> سجل المتطلبات</h2>
-                </div>
-                <div class="history-list" id="historyList">
-                    <div class="empty-state">
-                        <i class="fas fa-folder-open"></i>
-                        <p>لا توجد متطلبات محفوظة بعد</p>
-                    </div>
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-secondary" id="backToFormBtn">
-                        <i class="fas fa-arrow-right"></i>
-                        العودة للنموذج
-                    </button>
-                </div>
-            </div>
-        </main>
-
-        <footer class="no-print" style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 14px;">
-            <p>© 2024 أداة مشاركة متطلبات المشروع</p>
-            <p style="margin-top: 8px;">أداة ثابتة تعمل بالكامل دون خادم | جميع البيانات محلية وآمنة 🔒</p>
-        </footer>
-    </div>
-
-    <script>
-        // State Management
-        let files = [];
-        let tags = [];
-        let currentData = null;
-
-        // DOM Elements
-        const els = {
-            inputForm: document.getElementById('inputForm'),
-            displayView: document.getElementById('displayView'),
-            historyView: document.getElementById('historyView'),
-            requirementForm: document.getElementById('requirementForm'),
-            title: document.getElementById('title'),
-            requirements: document.getElementById('requirements'),
-            tagInput: document.getElementById('tagInput'),
-            tagsContainer: document.getElementById('tagsContainer'),
-            confidence: document.getElementById('confidence'),
-            confidenceValue: document.getElementById('confidenceValue'),
-            confidenceDisplay: document.getElementById('confidenceDisplay'),
-            fileUploadArea: document.getElementById('fileUploadArea'),
-            fileInput: document.getElementById('fileInput'),
-            fileList: document.getElementById('fileList'),
-            usePassword: document.getElementById('usePassword'),
-            passwordGroup: document.getElementById('passwordGroup'),
-            password: document.getElementById('password'),
-            isAI: document.getElementById('isAI'),
-            urlBox: document.getElementById('urlBox'),
-            urlText: document.getElementById('urlText'),
-            copyBtn: document.getElementById('copyBtn'),
-            whatsappBtn: document.getElementById('whatsappBtn'),
-            printBtn: document.getElementById('printBtn'),
-            viewHistoryBtn: document.getElementById('viewHistoryBtn'),
-            backToFormBtn: document.getElementById('backToFormBtn'),
-            historyList: document.getElementById('historyList'),
-            passwordCheck: document.getElementById('passwordCheck'),
-            requirementDisplay: document.getElementById('requirementDisplay'),
-            viewPassword: document.getElementById('viewPassword'),
-            unlockBtn: document.getElementById('unlockBtn'),
-            passwordError: document.getElementById('passwordError'),
-            themeToggle: document.getElementById('themeToggle')
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            setupEventListeners();
-            loadHistory();
-            checkURLHash();
-        });
-
-        // Theme Management
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                updateThemeIcon();
-            }
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-            localStorage.setItem('theme', theme);
-            updateThemeIcon();
-        }
-
-        function updateThemeIcon() {
-            const icon = els.themeToggle.querySelector('i');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-        }
-
-        // Event Listeners Setup
-        function setupEventListeners() {
-            // Theme toggle
-            els.themeToggle.addEventListener('click', toggleTheme);
-
-            // Form submission
-            els.requirementForm.addEventListener('submit', handleFormSubmit);
-
-            // Confidence slider
-            els.confidence.addEventListener('input', (e) => {
-                const value = e.target.value;
-                els.confidenceValue.textContent = value;
-                els.confidenceDisplay.textContent = value + '%';
-            });
-
-            // Tags
-            els.tagInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    addTag(e.target.value.trim());
-                    e.target.value = '';
-                }
-            });
-
-            els.tagsContainer.addEventListener('click', () => {
-                els.tagInput.focus();
-            });
-
-            // File upload
-            els.fileUploadArea.addEventListener('click', () => els.fileInput.click());
-            
-            els.fileUploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                els.fileUploadArea.classList.add('dragover');
-            });
-
-            els.fileUploadArea.addEventListener('dragleave', () => {
-                els.fileUploadArea.classList.remove('dragover');
-            });
-
-            els.fileUploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                els.fileUploadArea.classList.remove('dragover');
-                handleFiles(e.dataTransfer.files);
-            });
-
-            els.fileInput.addEventListener('change', (e) => {
-                handleFiles(e.target.files);
-            });
-
-            // Password checkbox
-            els.usePassword.addEventListener('change', (e) => {
-                els.passwordGroup.classList.toggle('hidden', !e.target.checked);
-            });
-
-            // Buttons
-            els.copyBtn.addEventListener('click', copyLink);
-            els.whatsappBtn.addEventListener('click', shareWhatsApp);
-            els.printBtn.addEventListener('click', () => window.print());
-            els.viewHistoryBtn.addEventListener('click', showHistory);
-            els.backToFormBtn.addEventListener('click', showForm);
-            els.unlockBtn.addEventListener('click', checkPassword);
-
-            // Hash change
-            window.addEventListener('hashchange', checkURLHash);
-        }
-
-        // Tag Management
-        function addTag(tagText) {
-            if (tagText && !tags.includes(tagText)) {
-                tags.push(tagText);
-                renderTags();
-            }
-        }
-
-        function removeTag(tagText) {
-            tags = tags.filter(t => t !== tagText);
-            renderTags();
-        }
-
-        function renderTags() {
-            const existingInput = els.tagInput;
-            els.tagsContainer.innerHTML = '';
-            
-            tags.forEach(tag => {
-                const tagEl = document.createElement('div');
-                tagEl.className = 'tag';
-                tagEl.innerHTML = `
-                    ${tag}
-                    <button type="button" class="tag-remove" onclick="removeTag('${tag.replace(/'/g, "\\'")}')">×</button>
-                `;
-                els.tagsContainer.appendChild(tagEl);
-            });
-            
-            els.tagsContainer.appendChild(existingInput);
-        }
-
-        // File Management
-        function handleFiles(fileList) {
-            if (files.length + fileList.length > 5) {
-                alert('الحد الأقصى 5 ملفات');
-                return;
-            }
-
-            Array.from(fileList).forEach(file => {
-                if (file.size > 1024 * 1024 * 1024) {
-                    alert(`الملف ${file.name} يتجاوز 1 جيجا`);
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    files.push({
-                        name: file.name,
-                        size: file.size,
-                        type: file.type,
-                        data: e.target.result
-                    });
-                    renderFiles();
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function renderFiles() {
-            els.fileList.innerHTML = '';
-            
-            files.forEach((file, index) => {
-                const fileItem = document.createElement('div');
-                fileItem.className = 'file-item';
-                fileItem.innerHTML = `
-                    <div class="file-info">
-                        <i class="fas fa-file file-icon"></i>
-                        <div>
-                            <div class="file-name">${file.name}</div>
-                            <div class="file-size">${formatFileSize(file.size)}</div>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-danger" onclick="removeFile(${index})" style="padding: 8px 16px;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                `;
-                els.fileList.appendChild(fileItem);
-            });
-        }
-
-        function removeFile(index) {
-            files.splice(index, 1);
-            renderFiles();
-        }
-
-        function formatFileSize(bytes) {
-            if (bytes < 1024) return bytes + ' بايت';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' ك.ب';
-            return (bytes / (1024 * 1024)).toFixed(2) + ' م.ب';
-        }
-
-        // Form Submission
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            
-            const title = els.title.value.trim();
-            const requirements = els.requirements.value.trim();
-            
-            if (!title || !requirements) {
-                alert('يرجى إدخال العنوان والتفاصيل');
-                return;
-            }
-
-            const usePassword = els.usePassword.checked;
-            const password = els.password.value;
-
-            if (usePassword && !password) {
-                alert('يرجى إدخال كلمة المرور');
-                return;
-            }
-
-            // Create data object
-            const data = {
-                title,
-                requirements,
-                tags,
-                confidence: parseInt(els.confidence.value),
-                files,
-                isAI: els.isAI.checked,
-                createdAt: new Date().toISOString(),
-                protected: usePassword,
-                password: usePassword ? btoa(password) : null,
-                id: Date.now()
-            };
-
-            // Save to history
-            saveToHistory(data);
-
-            // Generate share link
-            try {
-                const jsonString = JSON.stringify(data);
-                const encoded = btoa(encodeURIComponent(jsonString));
-                const shareURL = window.location.origin + window.location.pathname + '#' + encoded;
-                
-                currentData = data;
-                els.urlText.textContent = shareURL;
-                els.urlBox.classList.remove('hidden');
-                
-                console.log('✅ تم إنشاء الرابط بنجاح:', shareURL);
-                
-                // Scroll to URL box
-                setTimeout(() => {
-                    els.urlBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
-            } catch (error) {
-                console.error('خطأ في إنشاء الرابط:', error);
-                alert('حدث خطأ في إنشاء الرابط. يرجى المحاولة مرة أخرى.');
-            }
-        }
-
-        // Share Functions
-        function copyLink() {
-            const url = els.urlText.textContent;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('✅ تم نسخ الرابط!');
-            }).catch(() => {
-                // Fallback for older browsers
-                const textarea = document.createElement('textarea');
-                textarea.value = url;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('✅ تم نسخ الرابط!');
-            });
-        }
-
-        function shareWhatsApp() {
-            const url = els.urlText.textContent;
-            const text = `شاهد متطلبات المشروع: ${currentData.title}`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n\n' + url)}`, '_blank');
-        }
-
-        // History Management
-        function saveToHistory(data) {
-            let history = JSON.parse(localStorage.getItem('requirementsHistory') || '[]');
-            history.unshift(data);
-            if (history.length > 50) history = history.slice(0, 50);
-            localStorage.setItem('requirementsHistory', JSON.stringify(history));
-            loadHistory();
-        }
-
-        function loadHistory() {
-            const history = JSON.parse(localStorage.getItem('requirementsHistory') || '[]');
-            
-            if (history.length === 0) {
-                els.historyList.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-folder-open"></i>
-                        <p>لا توجد متطلبات محفوظة بعد</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            els.historyList.innerHTML = history.map(item => `
-                <div class="history-item" onclick="viewHistoryItem(${item.id})">
-                    <div class="history-title">
-                        ${item.title}
-                        ${item.isAI ? '<span class="badge badge-ai"><i class="fas fa-robot"></i> AI</span>' : ''}
-                        ${item.protected ? '<span class="badge badge-protected"><i class="fas fa-lock"></i> محمي</span>' : ''}
-                    </div>
-                    <div class="history-date">
-                        <i class="far fa-calendar"></i>
-                        ${formatDate(item.createdAt)}
-                    </div>
-                    ${item.tags.length ? `<div style="margin: 8px 0;">${item.tags.map(tag => `<span class="badge" style="background: var(--primary-color); color: white; margin-left: 5px;">${tag}</span>`).join('')}</div>` : ''}
-                    <div class="history-preview">
-                        ${item.requirements.substring(0, 150)}${item.requirements.length > 150 ? '...' : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function viewHistoryItem(id) {
-            const history = JSON.parse(localStorage.getItem('requirementsHistory') || '[]');
-            const item = history.find(h => h.id === id);
-            if (item) {
-                const encoded = btoa(encodeURIComponent(JSON.stringify(item)));
-                window.location.hash = encoded;
-                checkURLHash();
-            }
-        }
-
-        // URL Hash Management
-        function checkURLHash() {
-            const hash = window.location.hash.substring(1);
-            if (!hash) {
-                showForm();
-                return;
-            }
-
-            try {
-                const decoded = JSON.parse(decodeURIComponent(atob(hash)));
-                currentData = decoded;
-                
-                if (decoded.protected) {
-                    showPasswordPrompt();
-                } else {
-                    displayRequirement(decoded);
-                }
-            } catch (e) {
-                alert('رابط غير صالح أو تالف');
-                showForm();
-            }
-        }
-
-        function showPasswordPrompt() {
-            els.inputForm.classList.add('hidden');
-            els.historyView.classList.add('hidden');
-            els.displayView.classList.remove('hidden');
-            els.passwordCheck.classList.remove('hidden');
-            els.requirementDisplay.classList.add('hidden');
-        }
-
-        function checkPassword() {
-            const password = els.viewPassword.value;
-            if (btoa(password) === currentData.password) {
-                els.passwordCheck.classList.add('hidden');
-                els.requirementDisplay.classList.remove('hidden');
-                displayRequirement(currentData);
-            } else {
-                els.passwordError.textContent = '❌ كلمة مرور خاطئة';
-                els.passwordError.classList.remove('hidden');
-                setTimeout(() => {
-                    els.passwordError.classList.add('hidden');
-                }, 3000);
-            }
-        }
-
-        function displayRequirement(data) {
-            els.inputForm.classList.add('hidden');
-            els.historyView.classList.add('hidden');
-            els.displayView.classList.remove('hidden');
-            els.passwordCheck.classList.add('hidden');
-            els.requirementDisplay.classList.remove('hidden');
-
-            els.requirementDisplay.innerHTML = `
-                <div class="requirement-header">
-                    <div class="requirement-title">
-                        ${data.title}
-                        ${data.isAI ? '<span class="badge badge-ai"><i class="fas fa-robot"></i> AI</span>' : ''}
-                    </div>
-                    <div class="requirement-meta">
-                        <span class="meta-item">
-                            <i class="far fa-calendar"></i>
-                            ${formatDate(data.createdAt)}
-                        </span>
-                        ${data.tags.length ? `
-                            <span class="meta-item">
-                                <i class="fas fa-tags"></i>
-                                ${data.tags.join(', ')}
-                            </span>
-                        ` : ''}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>مستوى الثقة</label>
-                    <div class="confidence-bar">
-                        <div class="confidence-fill" style="width: ${data.confidence}%">${data.confidence}%</div>
-                    </div>
-                </div>
-
-                <div class="requirement-content">
-                    <h3 style="margin-bottom: 15px; color: var(--primary-color);">
-                        <i class="fas fa-file-alt"></i>
-                        تفاصيل المتطلبات
-                    </h3>
-                    ${data.requirements}
-                </div>
-
-                ${data.files && data.files.length > 0 ? `
-                    <div class="form-group">
-                        <h3 style="margin-bottom: 15px; color: var(--primary-color);">
-                            <i class="fas fa-paperclip"></i>
-                            المرفقات
-                        </h3>
-                        <div class="file-list">
-                            ${data.files.map(file => `
-                                <div class="file-item">
-                                    <div class="file-info">
-                                        <i class="fas fa-file file-icon"></i>
-                                        <div>
-                                            <div class="file-name">${file.name}</div>
-                                            <div class="file-size">${formatFileSize(file.size)}</div>
-                                        </div>
-                                    </div>
-                                    <a href="${file.data}" download="${file.name}" class="btn btn-secondary" style="padding: 8px 16px;">
-                                        <i class="fas fa-download"></i>
-                                        تحميل
-                                    </a>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                ` : ''}
-
-                <div class="btn-group no-print">
-                    <button class="btn btn-primary" onclick="copyCurrentLink()">
-                        <i class="fas fa-copy"></i>
-                        نسخ الرابط
-                    </button>
-                    <button class="btn btn-success" onclick="shareCurrentWhatsApp()">
-                        <i class="fab fa-whatsapp"></i>
-                        واتساب
-                    </button>
-                    <button class="btn btn-warning" onclick="window.print()">
-                        <i class="fas fa-print"></i>
-                        طباعة / PDF
-                    </button>
-                    <button class="btn btn-secondary" onclick="showForm()">
-                        <i class="fas fa-plus"></i>
-                        إنشاء جديد
-                    </button>
-                </div>
-            `;
-
-            // Animate confidence bar
-            setTimeout(() => {
-                const fill = els.requirementDisplay.querySelector('.confidence-fill');
-                if (fill) fill.style.width = data.confidence + '%';
-            }, 100);
-        }
-
-        function copyCurrentLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('✅ تم نسخ الرابط!');
-            });
-        }
-
-        function shareCurrentWhatsApp() {
-            const url = window.location.href;
-            const text = `شاهد متطلبات المشروع: ${currentData.title}`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n\n' + url)}`, '_blank');
-        }
-
-        // View Management
-        function showForm() {
-            els.inputForm.classList.remove('hidden');
-            els.displayView.classList.add('hidden');
-            els.historyView.classList.add('hidden');
-            window.location.hash = '';
-        }
-
-        function showHistory() {
-            els.inputForm.classList.add('hidden');
-            els.displayView.classList.add('hidden');
-            els.historyView.classList.remove('hidden');
-            loadHistory();
-        }
-
-        // Utility Functions
-        function formatDate(isoString) {
-            const date = new Date(isoString);
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            };
-            return date.toLocaleDateString('ar-SA', options);
-        }
-
-        // Make functions global for onclick handlers
-        window.removeTag = removeTag;
-        window.removeFile = removeFile;
-        window.viewHistoryItem = viewHistoryItem;
-        window.copyCurrentLink = copyCurrentLink;
-        window.shareCurrentWhatsApp = shareCurrentWhatsApp;
-        window.showForm = showForm;
-    </script>
+<div class="container">
+<header>
+  <h1><i class="fas fa-file-contract"></i> Project Requirements Share</h1>
+  <i class="fas fa-moon theme-toggle" id="themeToggle"></i>
+</header>
+
+<div class="card" id="inputForm">
+  <label>Project Title *</label>
+  <input type="text" id="title" placeholder="Enter project title">
+  <label>Details *</label>
+  <textarea id="details" placeholder="Describe your requirements..."></textarea>
+  <label>Tags (comma separated)</label>
+  <input type="text" id="tags" placeholder="e.g. Web, Backend, Design">
+  <label>Confidence Level (%)</label>
+  <input type="range" id="confidence" min="0" max="100" value="50">
+  <span id="confValue">50%</span>
+  <label>Upload Files (max 5)</label>
+  <input type="file" id="files" multiple>
+  <button class="primary" id="generateBtn"><i class="fas fa-link"></i> Generate Share Link</button>
+  <div class="url-box" id="urlBox">
+    <div id="urlText"></div>
+    <button class="success" id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
+    <button class="success" id="whatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+    <button class="warning" id="printBtn"><i class="fas fa-print"></i> Print / PDF</button>
+  </div>
+</div>
+
+<div class="card" id="requirementsDisplay" style="display:none;">
+  <h2 id="displayTitle"></h2>
+  <div><strong>Tags:</strong> <span id="displayTags"></span></div>
+  <div><strong>Confidence:</strong> <span id="displayConfidence"></span>%</div>
+  <div><strong>Files:</strong> <ul id="displayFiles"></ul></div>
+  <div><strong>Details:</strong></div>
+  <div id="displayDetails"></div>
+  <div><strong>Date:</strong> <span id="displayDate"></span></div>
+  <button class="primary" id="newBtn">New Requirement</button>
+</div>
+
+<div class="card" id="historyContainer" style="display:none;">
+  <h2>History</h2>
+  <div id="historyList"></div>
+  <button class="secondary" id="backBtn">Back</button>
+</div>
+
+</div>
+
+<script>
+// Theme
+const themeToggle=document.getElementById('themeToggle');
+themeToggle.addEventListener('click',()=>{document.body.classList.toggle('dark');});
+
+// Confidence slider
+const confidence=document.getElementById('confidence');
+const confValue=document.getElementById('confValue');
+confidence.addEventListener('input',()=>{confValue.textContent=confidence.value+'%';});
+
+// Elements
+const generateBtn=document.getElementById('generateBtn');
+const urlBox=document.getElementById('urlBox');
+const urlText=document.getElementById('urlText');
+const copyBtn=document.getElementById('copyBtn');
+const whatsappBtn=document.getElementById('whatsappBtn');
+const printBtn=document.getElementById('printBtn');
+
+const inputForm=document.getElementById('inputForm');
+const requirementsDisplay=document.getElementById('requirementsDisplay');
+const newBtn=document.getElementById('newBtn');
+
+const titleInput=document.getElementById('title');
+const detailsInput=document.getElementById('details');
+const tagsInput=document.getElementById('tags');
+const filesInput=document.getElementById('files');
+const displayFiles=document.getElementById('displayFiles');
+
+// Generate share link
+generateBtn.addEventListener('click',()=>{
+  if(!titleInput.value.trim()||!detailsInput.value.trim()){alert('Title and Details required');return;}
+  const fileNames=[];
+  if(filesInput.files.length>5){alert('Max 5 files'); return;}
+  for(let f of filesInput.files){fileNames.push(f.name);}
+  const data={
+    title:titleInput.value.trim(),
+    details:detailsInput.value.trim(),
+    tags:tagsInput.value.trim(),
+    confidence:confidence.value,
+    files:fileNames,
+    date:new Date().toLocaleString()
+  };
+  const json=JSON.stringify(data);
+  const b64=btoa(json);
+  const url=window.location.origin+window.location.pathname+'#'+b64;
+  urlText.textContent=url;
+  urlBox.style.display='block';
+  displayData(data);
+  saveHistory(data);
+});
+
+// Display requirement
+function displayData(data){
+  inputForm.style.display='none';
+  requirementsDisplay.style.display='block';
+  document.getElementById('displayTitle').textContent=data.title;
+  document.getElementById('displayDetails').textContent=data.details;
+  document.getElementById('displayTags').textContent=data.tags;
+  document.getElementById('displayConfidence').textContent=data.confidence;
+  document.getElementById('displayDate').textContent=data.date;
+  displayFiles.innerHTML='';
+  data.files.forEach(f=>{let li=document.createElement('li');li.textContent=f;displayFiles.appendChild(li);});
+}
+
+// Copy link
+copyBtn.addEventListener('click',()=>{navigator.clipboard.writeText(urlText.textContent);alert('Copied!');});
+// WhatsApp share
+whatsappBtn.addEventListener('click',()=>{window.open('https://wa.me/?text='+encodeURIComponent(urlText.textContent),'_blank');});
+// Print
+printBtn.addEventListener('click',()=>{window.print();});
+// New
+newBtn.addEventListener('click',()=>{requirementsDisplay.style.display='none';inputForm.style.display='block';urlBox.style.display='none';});
+
+// History in localStorage
+function saveHistory(data){
+  let history=JSON.parse(localStorage.getItem('history')||'[]');
+  history.push(data);
+  localStorage.setItem('history',JSON.stringify(history));
+}
+</script>
 </body>
 </html>
