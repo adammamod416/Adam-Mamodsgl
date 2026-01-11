@@ -1,173 +1,151 @@
-<!DOCTYPE html><html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Requirements Share</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #1a73e8;
-            --primary-light: #e8f0fe;
-            --text-primary: #202124;
-            --text-secondary: #5f6368;
-            --bg-color: #ffffff;
-            --card-bg: #ffffff;
-            --border-color: #dadce0;
-            --shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px rgba(60,64,67,0.15);
-            --shadow-light: 0 1px 2px rgba(60,64,67,0.3);
-            --success-color: #34a853;
-            --warning-color: #f9ab00;
-            --radius: 8px;
-            --transition: all 0.3s ease;
-        }
-        .dark-mode {
-            --primary-color: #8ab4f8;
-            --primary-light: #202124;
-            --text-primary: #e8eaed;
-            --text-secondary: #9aa0a6;
-            --bg-color: #202124;
-            --card-bg: #292a2d;
-            --border-color: #3c4043;
-            --shadow: 0 1px 3px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
-            --shadow-light: 0 1px 2px rgba(0,0,0,0.5);
-        }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Cairo','Almarai',sans-serif; background-color:var(--bg-color); color:var(--text-primary); line-height:1.6; transition:var(--transition); min-height:100vh; padding-bottom:40px; }
-        .container { max-width:900px; margin:0 auto; padding:20px; }
-        header { display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; padding-bottom:15px; border-bottom:1px solid var(--border-color); }
-        .logo { display:flex; align-items:center; gap:12px; }
-        .logo i { color:var(--primary-color); font-size:28px; }
-        .logo h1 { font-size:24px; font-weight:700; }
-        .theme-toggle { background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:20px; padding:8px; border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; transition:var(--transition); }
-        .theme-toggle:hover { background-color:var(--primary-light); color:var(--primary-color); }
-        .card { background-color:var(--card-bg); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px; margin-bottom:24px; transition:var(--transition); }
-        .card-header { margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--border-color); }
-        .card-header h2 { font-size:20px; font-weight:600; color:var(--primary-color); }
-        .form-group { margin-bottom:20px; }
-        label { display:block; margin-bottom:8px; font-weight:600; color:var(--text-primary); }
-        input, textarea, select { width:100%; padding:14px; border:1px solid var(--border-color); border-radius:var(--radius); font-family:'Cairo',sans-serif; font-size:16px; background-color:var(--card-bg); color:var(--text-primary); transition:var(--transition); }
-        input:focus, textarea:focus, select:focus { outline:none; border-color:var(--primary-color); box-shadow:0 0 0 2px var(--primary-light); }
-        textarea { min-height:150px; resize:vertical; }
-        .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 20px; border-radius:var(--radius); font-family:'Cairo',sans-serif; font-size:16px; font-weight:600; cursor:pointer; border:none; transition:var(--transition); }
-        .btn-primary { background-color:var(--primary-color); color:white; }
-        .btn-primary:hover { background-color:#0d62d9; box-shadow:var(--shadow); transform:translateY(-2px); }
-        .btn-secondary { background-color:#f1f3f4; color:var(--text-primary); }
-        .dark-mode .btn-secondary { background-color:#3c4043; color:#e8eaed; }
-        .btn-success { background-color:var(--success-color); color:white; }
-        .btn-warning { background-color:var(--warning-color); color:#202124; }
-        .button-group { display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; }
-        .url-box { background-color:var(--primary-light); border:1px solid var(--border-color); border-radius:var(--radius); padding:16px; margin-top:20px; word-break:break-all; font-family:monospace; font-size:14px; display:none; }
-        .url-box.show { display:block; animation:fadeIn 0.5s ease; }
-        .requirements-container { display:none; }
-        .history-container { display:none; }
-        footer { text-align:center; margin-top:40px; padding-top:20px; border-top:1px solid var(--border-color); color:var(--text-secondary); font-size:14px; }
-        @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Requirements Share</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --primary:#1a73e8; --primary-light:#e8f0fe; --text:#202124; --text-secondary:#5f6368;
+  --bg:#fff; --card:#fff; --border:#dadce0; --shadow:0 1px 3px rgba(60,64,67,0.3),0 4px 8px rgba(60,64,67,0.15);
+  --radius:8px; --transition:all 0.3s ease; --success:#34a853; --warning:#f9ab00;
+}
+.dark {--primary:#8ab4f8; --primary-light:#202124; --text:#e8eaed; --text-secondary:#9aa0a6; --bg:#202124; --card:#292a2d; --border:#3c4043;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:sans-serif;background:var(--bg);color:var(--text);transition:var(--transition);min-height:100vh;padding:20px;}
+.container{max-width:900px;margin:0 auto;}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;border-bottom:1px solid var(--border);padding-bottom:10px;}
+header h1{font-size:24px;color:var(--primary);}
+.theme-toggle{cursor:pointer;font-size:20px;}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:20px;}
+input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:15px;}
+button{padding:10px 20px;border:none;border-radius:var(--radius);cursor:pointer;transition:var(--transition);}
+button.primary{background:var(--primary);color:white;}
+button.secondary{background:#f1f3f4;color:var(--text);}
+button.success{background:var(--success);color:white;}
+button.warning{background:var(--warning);color:#202124;}
+.url-box{background:var(--primary-light);padding:10px;border-radius:var(--radius);word-break:break-all;display:none;margin-top:10px;}
+.history-item{padding:10px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;margin-bottom:8px;}
+</style>
 </head>
 <body>
 <div class="container">
-    <header>
-        <div class="logo">
-            <i class="fas fa-file-contract"></i>
-            <h1>Project Requirements Share</h1>
-        </div>
-        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
-    </header><main>
-    <div class="card" id="inputForm">
-        <div class="card-header"><h2><i class="fas fa-edit"></i> Enter Project Requirements</h2></div>
-        <div class="form-group"><label for="title">Title</label><input type="text" id="title" placeholder="Enter project title"></div>
-        <div class="form-group"><label for="requirements">Details</label><textarea id="requirements" placeholder="Describe project requirements..."></textarea></div>
-        <div class="form-group"><label for="tags">Tags / Categories (optional)</label><input type="text" id="tags" placeholder="Separate tags with commas"></div>
-        <div class="form-group"><label for="confidence">Confidence Level</label><input type="range" id="confidence" min="0" max="100" value="50"></div>
-        <div class="form-group"><label for="files">Upload Files (max 5, 1GB each)</label><input type="file" id="files" multiple></div>
-        <div class="button-group">
-            <button class="btn btn-primary" id="generateBtn"><i class="fas fa-link"></i> Generate Share Link</button>
-            <button class="btn btn-secondary" id="viewHistoryBtn"><i class="fas fa-history"></i> View History</button>
-        </div>
-        <div class="url-box" id="urlBox"><div id="urlText"></div></div>
-    </div>
+<header>
+  <h1><i class="fas fa-file-contract"></i> Project Requirements Share</h1>
+  <i class="fas fa-moon theme-toggle" id="themeToggle"></i>
+</header>
 
-    <div class="card requirements-container" id="requirementsDisplay">
-        <div class="creation-date"><i class="far fa-calendar-alt"></i> <span id="displayDate"></span></div>
-        <h1 id="displayTitle"></h1>
-        <div class="requirements-content" id="displayRequirements"></div>
-        <div class="button-group">
-            <button class="btn btn-primary" id="newRequirementsBtn"><i class="fas fa-plus"></i> New Submission</button>
-        </div>
-    </div>
+<div class="card" id="inputForm">
+  <label>Project Title *</label>
+  <input type="text" id="title" placeholder="Enter project title">
+  <label>Details *</label>
+  <textarea id="details" placeholder="Describe your requirements..."></textarea>
+  <label>Tags (comma separated)</label>
+  <input type="text" id="tags" placeholder="e.g. Web, Backend, Design">
+  <label>Confidence Level (%)</label>
+  <input type="range" id="confidence" min="0" max="100" value="50">
+  <span id="confValue">50%</span>
+  <label>Upload Files (max 5)</label>
+  <input type="file" id="files" multiple>
+  <button class="primary" id="generateBtn"><i class="fas fa-link"></i> Generate Share Link</button>
+  <div class="url-box" id="urlBox">
+    <div id="urlText"></div>
+    <button class="success" id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
+    <button class="success" id="whatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+    <button class="warning" id="printBtn"><i class="fas fa-print"></i> Print / PDF</button>
+  </div>
+</div>
 
-    <div class="card history-container" id="historyContainer">
-        <div class="card-header"><h2><i class="fas fa-history"></i> Past Submissions</h2></div>
-        <div class="history-list" id="historyList"></div>
-        <div class="button-group"><button class="btn btn-secondary" id="backToFormBtn"><i class="fas fa-arrow-left"></i> Back</button></div>
-    </div>
-</main>
+<div class="card" id="requirementsDisplay" style="display:none;">
+  <h2 id="displayTitle"></h2>
+  <div><strong>Tags:</strong> <span id="displayTags"></span></div>
+  <div><strong>Confidence:</strong> <span id="displayConfidence"></span>%</div>
+  <div><strong>Details:</strong></div>
+  <div id="displayDetails"></div>
+  <div><strong>Date:</strong> <span id="displayDate"></span></div>
+  <button class="primary" id="newBtn">New Requirement</button>
+</div>
 
-<footer>
-    <p>© 2026 Project Requirements Share. Offline & Privacy-first</p>
-</footer>
+<div class="card" id="historyContainer" style="display:none;">
+  <h2>History</h2>
+  <div id="historyList"></div>
+  <button class="secondary" id="backBtn">Back</button>
+</div>
 
-</div><script>
+</div>
+
+<script>
+// Theme
+const themeToggle=document.getElementById('themeToggle');
+themeToggle.addEventListener('click',()=>{document.body.classList.toggle('dark');});
+
+// Confidence slider
+const confidence=document.getElementById('confidence');
+const confValue=document.getElementById('confValue');
+confidence.addEventListener('input',()=>{confValue.textContent=confidence.value+'%';});
+
 // Elements
-const inputForm=document.getElementById('inputForm');
-const requirementsDisplay=document.getElementById('requirementsDisplay');
-const historyContainer=document.getElementById('historyContainer');
-const titleInput=document.getElementById('title');
-const requirementsInput=document.getElementById('requirements');
-const tagsInput=document.getElementById('tags');
-const confidenceInput=document.getElementById('confidence');
-const filesInput=document.getElementById('files');
 const generateBtn=document.getElementById('generateBtn');
 const urlBox=document.getElementById('urlBox');
 const urlText=document.getElementById('urlText');
-const displayTitle=document.getElementById('displayTitle');
-const displayRequirements=document.getElementById('displayRequirements');
-const displayDate=document.getElementById('displayDate');
-const newRequirementsBtn=document.getElementById('newRequirementsBtn');
-const viewHistoryBtn=document.getElementById('viewHistoryBtn');
-const backToFormBtn=document.getElementById('backToFormBtn');
-const historyList=document.getElementById('historyList');
-const themeToggle=document.getElementById('themeToggle');
-const themeIcon=themeToggle.querySelector('i');
+const copyBtn=document.getElementById('copyBtn');
+const whatsappBtn=document.getElementById('whatsappBtn');
+const printBtn=document.getElementById('printBtn');
 
-let currentData=null;
-let history=[];
+const inputForm=document.getElementById('inputForm');
+const requirementsDisplay=document.getElementById('requirementsDisplay');
+const newBtn=document.getElementById('newBtn');
 
-document.addEventListener('DOMContentLoaded',()=>{
-    loadHistory();
-    const hash=window.location.hash.substring(1);
-    if(hash) decodeAndDisplayData(hash);
-    initTheme();
-});
+const titleInput=document.getElementById('title');
+const detailsInput=document.getElementById('details');
+const tagsInput=document.getElementById('tags');
 
-themeToggle.addEventListener('click',()=>{document.body.classList.contains('dark-mode')?disableDarkMode():enableDarkMode();updateThemeIcon();});
-function enableDarkMode(){document.body.classList.add('dark-mode');localStorage.setItem('theme','dark');}
-function disableDarkMode(){document.body.classList.remove('dark-mode');localStorage.setItem('theme','light');}
-function updateThemeIcon(){themeIcon.classList.contains('fa-moon')?(themeIcon.classList.remove('fa-moon'),themeIcon.classList.add('fa-sun')):(themeIcon.classList.remove('fa-sun'),themeIcon.classList.add('fa-moon'));}
-
-function loadHistory(){const stored=localStorage.getItem('prs_history');stored&&(history=JSON.parse(stored));renderHistory();}
-function saveHistory(){localStorage.setItem('prs_history',JSON.stringify(history));}
-
+// Generate share link
 generateBtn.addEventListener('click',()=>{
-    const title=titleInput.value.trim(), requirements=requirementsInput.value.trim(), tags=tagsInput.value.trim(), confidence=confidenceInput.value;
-    if(!title||!requirements){alert('Please enter title and details'); return;}
-    const data={title,requirements,tags,confidence,date:new Date().toISOString(),id:Date.now().toString()};
-    currentData=data;
-    history.unshift(data);
-    saveHistory();
-    renderHistory();
-    displaySubmission(data);
-    const link=location.origin+location.pathname+'#'+btoa(JSON.stringify(data));
-    urlText.textContent=link;
-    urlBox.classList.add('show');
+  if(!titleInput.value.trim()||!detailsInput.value.trim()){alert('Title and Details required');return;}
+  const data={
+    title:titleInput.value.trim(),
+    details:detailsInput.value.trim(),
+    tags:tagsInput.value.trim(),
+    confidence:confidence.value,
+    date:new Date().toLocaleString()
+  };
+  const json=JSON.stringify(data);
+  const b64=btoa(json);
+  const url=window.location.origin+window.location.pathname+'#'+b64;
+  urlText.textContent=url;
+  urlBox.style.display='block';
+  displayData(data);
+  saveHistory(data);
 });
 
-function decodeAndDisplayData(hash){try{const data=JSON.parse(atob(hash));displaySubmission(data);}catch(e){console.error(e);}}
-function displaySubmission(data){inputForm.style.display='none';historyContainer.style.display='none';requirementsDisplay.style.display='block';displayTitle.textContent=data.title;displayRequirements.textContent=`${data.requirements}\n\nTags: ${data.tags}\nConfidence: ${data.confidence}%`;displayDate.textContent=new Date(data.date).toLocaleString();}
-newRequirementsBtn.addEventListener('click',()=>{inputForm.style.display='block';requirementsDisplay.style.display='none';urlBox.classList.remove('show');titleInput.value='';requirementsInput.value='';tagsInput.value='';confidenceInput.value=50;});
-viewHistoryBtn.addEventListener('click',()=>{inputForm.style.display='none';requirementsDisplay.style.display='none';historyContainer.style.display='block';});
-backToFormBtn.addEventListener('click',()=>{inputForm.style.display='block';requirementsDisplay.style.display='none';historyContainer.style.display='none';});
-function renderHistory(){historyList.innerHTML='';history.forEach(item=>{const div=document.createElement('div');div.classList.add('history-item');div.innerHTML=`<div class='history-title'>${item.title}</div><div class='history-date'>${new Date(item.date).toLocaleString()}</div><div class='history-preview'>${item.requirements.slice(0,80)}...</div>`;div.addEventListener('click',()=>displaySubmission(item));historyList.appendChild(div);});}
-</script></body>
+// Display requirement
+function displayData(data){
+  inputForm.style.display='none';
+  requirementsDisplay.style.display='block';
+  document.getElementById('displayTitle').textContent=data.title;
+  document.getElementById('displayDetails').textContent=data.details;
+  document.getElementById('displayTags').textContent=data.tags;
+  document.getElementById('displayConfidence').textContent=data.confidence;
+  document.getElementById('displayDate').textContent=data.date;
+}
+
+// Copy link
+copyBtn.addEventListener('click',()=>{navigator.clipboard.writeText(urlText.textContent);alert('Copied!');});
+// WhatsApp share
+whatsappBtn.addEventListener('click',()=>{window.open('https://wa.me/?text='+encodeURIComponent(urlText.textContent),'_blank');});
+// Print
+printBtn.addEventListener('click',()=>{window.print();});
+// New
+newBtn.addEventListener('click',()=>{requirementsDisplay.style.display='none';inputForm.style.display='block';urlBox.style.display='none';});
+
+// History in localStorage
+function saveHistory(data){
+  let history=JSON.parse(localStorage.getItem('history')||'[]');
+  history.push(data);
+  localStorage.setItem('history',JSON.stringify(history));
+}
+</script>
+</body>
 </html>
